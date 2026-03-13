@@ -1,13 +1,18 @@
 #!/bin/bash
 #SBATCH --job-name=ddp_poc
+#SBATCH --partition=GPU-a100
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=2          # one task per GPU
 #SBATCH --gpus-per-node=2
 #SBATCH --cpus-per-task=4
-#SBATCH --time=00:05:00
-#SBATCH --output=ddp_poc_%j.out
-#SBATCH --error=ddp_poc_%j.err
-#SBATCH --nodelist=somagpu095        # pin to the suspect node
+#SBATCH --time=00:10:00
+#SBATCH --output=logs/ddp_poc_%j.out
+#SBATCH --error=logs/ddp_poc_%j.err
+#SBATCH --nodelist=somagpu095,somagpu094        # pin to the A100 nodes
+#SBATCH --qos=GPU-a100
+
+# Create logs directory if it doesn't exist
+mkdir -p logs
 
 # ── optional: force the exact driver env that triggers the bug ────────────────
 # NVIDIA driver ≥ 510 sets this automatically; uncomment to make it explicit.
@@ -32,6 +37,10 @@ echo "========================================================"
 # Query raw driver / GPU health before launching the Python job
 nvidia-smi --query-gpu=index,name,driver_version,pstate,ecc.errors.corrected.volatile.total,ecc.errors.uncorrected.volatile.total --format=csv
 echo "--------------------------------------------------------"
+
+# Source the Python environment (adjust as needed)
+source ~/anaconda3/bin/activate torch-ddp
+echo "Activated Python environment: $(which python)"
 
 srun torchrun \
     --standalone \

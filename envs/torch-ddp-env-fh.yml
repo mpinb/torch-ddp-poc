@@ -1,0 +1,12 @@
+name: torch-ddp
+channels:
+  - bioconda
+  - pytorch
+  - nvidia
+  - conda-forge
+dependencies:
+  - python[version='>=3.12,<3.13']
+  - pytorch=2.3.0[build=cuda120*]
+  - torchvision=0.18.0[build=cuda120*]
+  - cuda-version=12.0
+prefix: /gpfs/soma_fs/home/valerio/anaconda3/envs/torch-ddp

@@ -5,8 +5,10 @@ channels:
   - nvidia
   - conda-forge
 dependencies:
-  - python=3.12
+  - python=3.11.15
   - pytorch-cuda=11.8
-  - torchvision=0.18.0[build=cuda118*]
-  - pytorch=2.3.0[build=cuda118*]
+  - torchvision=0.17.2
+  - pytorch=2.2.2
+  - cudatoolkit=11.8
+  - cudnn
 prefix: /gpfs/soma_fs/home/valerio/anaconda3/envs/torch-ddp

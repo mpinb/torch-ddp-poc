@@ -25,6 +25,8 @@ export PYTHONFAULTHANDLER=1
 
 # ── toggle software simulation (set to 1 to reproduce without a broken GPU) ──
 export SIMULATE_BUG=0   # change to 1 for software-only reproduction
+export OMP_NUM_THREADS=1  # limit CPU threads to avoid oversubscription
+export CUDA_VISIBLE_DEVICES=0,1  # specify which GPUs to use (adjust as needed)
 
 echo "========================================================"
 echo "Job ID        : $SLURM_JOB_ID"

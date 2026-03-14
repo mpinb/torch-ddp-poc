@@ -131,15 +131,19 @@ def main():
         dist.destroy_process_group()
         sys.exit(1)
 
-    # ── minimal training step to confirm gradients flow ──────────────────────
+    # ── minimal training loop to confirm gradients flow ──────────────────────
     if not simulate_bug:
         optimizer = torch.optim.SGD(ddp_model.parameters(), lr=1e-3)
-        x = torch.randn(8, 4, device=device)
-        y = torch.randint(0, 2, (8,), device=device)
-        loss = nn.CrossEntropyLoss()(ddp_model(x), y)
-        loss.backward()
-        optimizer.step()
-        print(f"[rank {rank}] training step OK — loss={loss.item():.4f}", flush=True)
+        criterion = nn.CrossEntropyLoss()
+
+        for step in range(5):
+            optimizer.zero_grad()
+            x = torch.randn(8, 4, device=device)
+            y = torch.randint(0, 2, (8,), device=device)
+            loss = criterion(ddp_model(x), y)
+            loss.backward()
+            optimizer.step()
+            print(f"[rank {rank}] step {step+1} OK — loss={loss.item():.4f}", flush=True)
 
     dist.destroy_process_group()
     print(f"[rank {rank}] done.", flush=True)

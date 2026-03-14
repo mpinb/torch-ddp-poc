@@ -5,6 +5,8 @@ Linked upstream reports
   - pytorch/pytorch #102438
   - huggingface/accelerate #1481
 
+REF: https://github.com/pytorch/pytorch/issues/102438
+
 Root cause
 ----------
 When CUDA_MODULE_LOADING=LAZY is set (default for NVIDIA driver ≥ 510),

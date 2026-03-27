@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# SLURM output and error logs and logs directory
+slurm-*.out
+slurm-*.err
+logs/

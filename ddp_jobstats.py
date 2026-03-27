@@ -21,7 +21,7 @@ HIDDEN_DIM  = 4096
 NUM_LAYERS  = 8       # depth of the MLP trunk
 NUM_CLASSES = 1000
 BATCH_SIZE  = 512
-NUM_STEPS   = 10_000
+NUM_STEPS   = 5_000
 LOG_EVERY   = 500     # print a progress line every N steps
 
 
